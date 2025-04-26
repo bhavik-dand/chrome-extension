@@ -1,17 +1,22 @@
 {
   "manifest_version": 3,
-  "name": "Stock Market Analysis",
+  "name": "StockFlo Analyzer",
   "version": "1.0",
-  "description": "A Chrome extension for stock market analysis with ticker fetching capability",
+  "description": "Analyze stocks with StockFlo workflows",
   "permissions": [
     "activeTab",
     "scripting",
     "storage",
-    "tabs"
+    "tabs",
+    "notifications"
   ],
   "host_permissions": [
     "https://finviz.com/*",
-    "https://*.finviz.com/*"
+    "https://*.finviz.com/*",
+    "https://*.finance.yahoo.com/*",
+    "https://*.marketwatch.com/*",
+    "https://*.investing.com/*",
+    "http://localhost:8000/*"
   ],
   "action": {
     "default_popup": "popup.html",
@@ -26,7 +31,12 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://finviz.com/*"],
+      "matches": [
+        "https://finviz.com/*",
+        "https://*.finance.yahoo.com/*",
+        "https://*.marketwatch.com/*",
+        "https://*.investing.com/*"
+      ],
       "js": ["content.js"]
     }
   ]

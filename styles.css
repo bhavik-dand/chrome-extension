@@ -1,0 +1,223 @@
+body {
+  width: 350px;
+  font-family: Arial, sans-serif;
+  padding: 15px;
+}
+
+h1 {
+  font-size: 18px;
+  margin-top: 0;
+  color: #333;
+}
+
+h3 {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+.finviz-section {
+  margin-bottom: 15px;
+}
+
+.finviz-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.finviz-buttons button {
+  padding: 8px 12px;
+  background-color: #4285f4;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.finviz-buttons button:hover {
+  background-color: #3367d6;
+}
+
+#finviz-status {
+  margin-top: 10px;
+  color: #666;
+  font-style: italic;
+}
+
+.divider {
+  height: 1px;
+  background-color: #eee;
+  margin: 15px 0;
+}
+
+.symbol-input {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.symbol-input input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+}
+
+.symbol-input button {
+  padding: 8px 12px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+.symbol-list {
+  margin-bottom: 15px;
+}
+
+.symbol-list ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid #eee;
+  border-radius: 4px;
+}
+
+.symbol-list li {
+  padding: 8px 10px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.symbol-list li:last-child {
+  border-bottom: none;
+}
+
+.remove-symbol {
+  background: none;
+  border: none;
+  color: #f44336;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.workflow-selection select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.actions {
+  text-align: center;
+  margin-top: 15px;
+}
+
+#analyze-button {
+  padding: 10px 20px;
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#analyze-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.status {
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.status.error {
+  background-color: #ffebee;
+  color: #f44336;
+}
+
+.status.success {
+  background-color: #e8f5e9;
+  color: #4CAF50;
+}
+
+.status.loading {
+  background-color: #e3f2fd;
+  color: #2196F3;
+}
+
+.execution-status {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+}
+
+.status-details {
+  margin-bottom: 10px;
+}
+
+.status-details div {
+  margin-bottom: 5px;
+}
+
+#status-value.completed {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+#status-value.failed {
+  color: #f44336;
+  font-weight: bold;
+}
+
+#status-value.running {
+  color: #2196F3;
+  font-weight: bold;
+}
+
+.progress-bar {
+  height: 8px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  margin: 10px 0;
+  overflow: hidden;
+}
+
+#progress-indicator {
+  height: 100%;
+  background-color: #4CAF50;
+  width: 0%;
+  transition: width 0.5s ease;
+}
+
+#progress-indicator.failed {
+  background-color: #f44336;
+}
+
+#view-results {
+  width: 100%;
+  padding: 8px;
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#view-results:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

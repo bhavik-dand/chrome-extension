@@ -3,75 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stock Market Analysis</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      width: 350px;
-      padding: 15px;
-    }
-    h1 {
-      color: #333;
-      font-size: 18px;
-      margin-top: 0;
-    }
-    button {
-      padding: 8px 12px;
-      background-color: #4285f4;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-      margin-bottom: 10px;
-    }
-    button:hover {
-      background-color: #3367d6;
-    }
-    #tickerList {
-      max-height: 300px;
-      overflow-y: auto;
-      border: 1px solid #ddd;
-      padding: 10px;
-      margin-top: 10px;
-      background-color: #f9f9f9;
-    }
-    .ticker-item {
-      margin-bottom: 5px;
-      padding: 5px;
-      border-bottom: 1px solid #eee;
-    }
-    #status {
-      margin-top: 10px;
-      color: #666;
-      font-style: italic;
-    }
-    .loading {
-      color: #ff9800;
-    }
-    .success {
-      color: #4caf50;
-    }
-    .warning {
-      color: #ff9800;
-    }
-    .error {
-      color: #f44336;
-    }
-    .ready {
-      color: #2196F3;
-    }
-  </style>
+  <title>StockFlo Analyzer</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Stock Market Analysis</h1>
+  <h1>StockFlo Analyzer</h1>
 
-  <button id="fetchTickersBtn">Fetch Tickers from Current Finviz Page</button>
-  <button id="openFinvizBtn">Open Finviz Screener</button>
+  <div class="finviz-section">
+    <h3>Finviz Ticker Tools</h3>
+    <div class="finviz-buttons">
+      <button id="fetchTickersBtn">Fetch Tickers from Current Finviz Page</button>
+      <button id="openFinvizBtn">Open Finviz Screener</button>
+    </div>
+    <div id="finviz-status" class="status ready">Ready to fetch tickers</div>
+    <div class="divider"></div>
+  </div>
 
-  <div id="status">Ready to fetch tickers.</div>
+  <div class="symbol-input">
+    <input type="text" id="manual-symbol" placeholder="Enter symbol (e.g., AAPL)">
+    <button id="add-symbol">Add</button>
+  </div>
 
-  <div id="tickerList"></div>
+  <div class="symbol-list">
+    <h3>Selected Symbols</h3>
+    <ul id="selected-symbols"></ul>
+  </div>
+
+  <div class="workflow-selection">
+    <h3>Select Workflow</h3>
+    <select id="workflow-select">
+      <option value="">Loading workflows...</option>
+    </select>
+  </div>
+
+  <div class="actions">
+    <button id="analyze-button" disabled>Analyze Symbols</button>
+    <div id="status-message"></div>
+  </div>
+
+  <div class="execution-status" id="execution-status" style="display: none;">
+    <h3>Analysis Status</h3>
+    <div class="status-details">
+      <div>Status: <span id="status-value">Running</span></div>
+      <div>Started: <span id="started-at">-</span></div>
+      <div>Completed: <span id="completed-at">-</span></div>
+      <div class="progress-bar">
+        <div id="progress-indicator"></div>
+      </div>
+    </div>
+    <button id="view-results" disabled>View Results</button>
+  </div>
 
   <script src="popup.js"></script>
 </body>
