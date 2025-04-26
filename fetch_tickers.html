@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finviz Ticker Fetcher</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    .instructions {
+      background-color: #f5f5f5;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #results {
+      margin-top: 20px;
+      white-space: pre-wrap;
+      background-color: #f8f8f8;
+      padding: 15px;
+      border-radius: 5px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>Finviz Ticker Fetcher</h1>
+  
+  <div class="instructions">
+    <p>This tool fetches ticker symbols from Finviz's screener for mega-cap NASDAQ-100 stocks.</p>
+    <p><strong>Note:</strong> This uses a CORS proxy (cors-anywhere) which may require you to request temporary access first.</p>
+    <p><a href="https://cors-anywhere.herokuapp.com/corsdemo" target="_blank">Click here to request temporary access to the CORS proxy</a></p>
+  </div>
+  
+  <button id="fetchButton">Fetch Tickers</button>
+  
+  <div id="results"></div>
+  
+  <script>
+    // Function to fetch and parse the Finviz page
+    async function fetchTickers() {
+      try {
+        const resultsDiv = document.getElementById('results');
+        resultsDiv.textContent = 'Fetching tickers from Finviz...\n';
+        
+        // Using a CORS proxy to bypass CORS restrictions
+        const corsProxy = 'https://cors-anywhere.herokuapp.com/';
+        const url = 'https://finviz.com/screener.ashx?v=111&f=cap_mega%2Cidx_ndx';
+        
+        const response = await fetch(corsProxy + url, {
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        });
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        
+        const html = await response.text();
+        resultsDiv.textContent += 'Received HTML response, parsing...\n';
+        
+        // Create a DOM parser
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        
+        // Find all ticker symbols in the table
+        // Finviz typically has tickers in <a> tags with class="screener-link-primary"
+        const tickerElements = doc.querySelectorAll('a.screener-link-primary');
+        
+        const tickers = [];
+        tickerElements.forEach(element => {
+          tickers.push(element.textContent.trim());
+        });
+        
+        resultsDiv.textContent += `Found tickers: ${tickers.join(', ')}\n\n`;
+        resultsDiv.textContent += `Total tickers found: ${tickers.length}\n`;
+        
+        // Check if there are more pages
+        const paginationLinks = doc.querySelectorAll('.screener-pages a');
+        if (paginationLinks.length > 0) {
+          resultsDiv.textContent += 'Note: There may be more pages of results not shown here.\n';
+        }
+        
+        return tickers;
+      } catch (error) {
+        const resultsDiv = document.getElementById('results');
+        resultsDiv.textContent += `Error fetching tickers: ${error.message}\n`;
+        console.error('Error fetching tickers:', error);
+        return [];
+      }
+    }
+
+    // Add event listener to the button
+    document.getElementById('fetchButton').addEventListener('click', fetchTickers);
+  </script>
+</body>
+</html>
